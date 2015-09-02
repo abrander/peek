@@ -51,19 +51,19 @@ function Legend(container) {
                     var t = textures.lines().size(8).strokeWidth(3).stroke(series.color);
                     keyContainer.call(t);
                     return t.url();
-                })
+                });
             } else if (series.texture === 'horizontal') {
                 key.style("fill", function(d) {
                     var t = textures.lines().orientation('horizontal').size(6).strokeWidth(3).stroke(series.color);
                     keyContainer.call(t);
                     return t.url();
-                })
+                });
             } else if (series.texture === 'woven') {
                 key.style("fill", function(d) {
                     var t = textures.paths().d('woven').thicker().stroke(series.color);
                     keyContainer.call(t);
                     return t.url();
-                })
+                });
             //------------------------------------------------------------------
             } else {
                 key.style("fill", series.color);
@@ -71,7 +71,7 @@ function Legend(container) {
 
             if (this.hasOutline === true) {
                 key.attr("stroke", series.color );
-                key.style("stroke-width", outlineWidth) 
+                key.style("stroke-width", outlineWidth);
             }
             if (this.hasOpacity === true) {
                 key.style('fill-opacity', this.opacity);
@@ -84,11 +84,11 @@ function Legend(container) {
             }
             if (series.units) {
                 text[++i] = ' ('+pkEscapeHtml(series.units)+')';
-            };
+            }
 
             row.append("span").html(text.join('')).attr('class', 'pk-keyText');
         }, this);
-    }
+    };
 }
 
 function Plot(container) {
@@ -116,14 +116,14 @@ function Plot(container) {
         var yLabelWidth = this.showYLabel === true ? labelHeight : 0;
         var plotWidth = this.width - yLabelWidth - this.margin.left - this.margin.right;
         return plotWidth;
-    }
+    };
 
     this.getSvgHeight = function() {
         var titleHeight = this.showTitle === true ? labelHeight : 0;
         var xLabelHeight = this.showXLabel === true ? labelHeight : 0;
         var plotHeight = this.height - titleHeight - xLabelHeight - this.margin.top - this.margin.bottom;
         return plotHeight;
-    }
+    };
 
     this.draw = function() {
 
@@ -205,7 +205,7 @@ function Axis (plot) {
         }
 
         rendered.call(axis);
-    }
+    };
 
     this.drawGrid = function (scale, orient) {
         if (this.showTicks) {
@@ -231,7 +231,7 @@ function Axis (plot) {
                     );
             }
         }
-    }
+    };
 }
 
 function Axes (plot) {
@@ -264,7 +264,7 @@ function Lines (plot) {
         if (this.visible === true) {
             data = dataObject;
         }
-    }
+    };
 
     this.draw = function(xScale, yScale) {
         if (this.visible === true) {
@@ -284,7 +284,7 @@ function Lines (plot) {
                     .attr("d", line(series.values));
             }, this);
         }
-    }
+    };
 }
 
 function Areas (plot) {
@@ -301,17 +301,17 @@ function Areas (plot) {
         if (this.visible === true) {
             data = dataObject;
         }
-    }
+    };
 
     this.draw = function(xScale, yScale) {
         if (this.visible === true) {
 
             var area = d3.svg.area().interpolate(this.interpolation).x(function(d) { return xScale(d.x); });
             if (data.isStacked === true) {
-                area.y0(function(d) { return yScale(d.y0); })
+                area.y0(function(d) { return yScale(d.y0); });
                 area.y1(function(d) { return yScale(d.y0 + d.y); });
             } else {
-                area.y0(plot.getSvgHeight())
+                area.y0(plot.getSvgHeight());
                 area.y1(function(d) { return yScale(d.y); });
             }
 
@@ -325,7 +325,7 @@ function Areas (plot) {
                 }
             }, this);
         }
-    }
+    };
 }
 
 function Points (plot) {
@@ -341,7 +341,7 @@ function Points (plot) {
         if (this.visible === true) {
             data = dataObject;
         }
-    }
+    };
 
     this.draw = function(xScale, yScale) {
         if (this.visible === true) {
@@ -375,7 +375,7 @@ function Points (plot) {
                 //------------------------------------------------------------------------------------------------------
             }, this);
         }
-    }
+    };
 
     this.mouseover_circle = function(data,i) {     
         var formatDate = d3.time.format("%A %d. %B %Y");
@@ -394,13 +394,13 @@ function Points (plot) {
                 + "<strong>Value:</strong> " 
                 + data.y
                 );
-    }
+    };
 
     this.mouseout_circle = function() {
         var circle = d3.select(this);
         circle.transition().duration(500).attr("r", self.size);
         d3.select(".pk-tooltip").style("display", "none"); 
-    }
+    };
 
 }
 
@@ -426,7 +426,7 @@ function Bars(plot) {
 
     this.getSampleBoxWidth = function () {
         return sampleBoxWidth;
-    }
+    };
 
     this.init = function (dataObject) {
         if (this.visible === true) {
@@ -440,7 +440,7 @@ function Bars(plot) {
 
             plot.axes.x.offset = sampleBoxWidth/2; //translate the tick to the center of sampleBox
         }
-    }
+    };
 
     this.draw = function(xScale, yScale) {
         var self = this;
@@ -472,19 +472,19 @@ function Bars(plot) {
                             var t = textures.lines().size(8).strokeWidth(3).stroke(series.color);
                             plot.svg.call(t);
                             return t.url();
-                        })
+                        });
                     } else if (series.texture === 'horizontal') {
                         bar.style("fill", function(d) {
                             var t = textures.lines().orientation('horizontal').size(6).strokeWidth(3).stroke(series.color);
                             plot.svg.call(t);
                             return t.url();
-                        })
+                        });
                     } else if (series.texture === 'woven') {
                         bar.style("fill", function(d) {
                             var t = textures.paths().d('woven').thicker().stroke(series.color);
                             plot.svg.call(t);
                             return t.url();
-                        })
+                        });
                     //--------------------------------------------------------------------------------------------------
                     } else {
                         bar.style("fill", series.color);
@@ -500,7 +500,7 @@ function Bars(plot) {
                 }, this);
             }, this);
         }
-    }
+    };
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -523,20 +523,20 @@ function Data() {
         }
         fetchXExtent();
         fetchYExtent();
-    }
+    };
 
     //todo - interpolate missing data points ... e.g. http://stackoverflow.com/questions/14713503
 
     this.getData = function() {
         return data;
-    }
+    };
 
     //------------------------------------------------------------------------------------------------------------------
 
     this.countSamples = function () {
         
         return data[0].values.length; //todo: don't assume each series is the same length
-    }
+    };
 
     //------------------------------------------------------------------------------------------------------------------
 
@@ -547,7 +547,7 @@ function Data() {
                 value.x = parseDate(value.x);
             });
         });
-    }
+    };
 
     var stack = function () {
 
@@ -572,7 +572,7 @@ function Data() {
             });
             stack(stripped_data);
         }
-    }
+    };
 
     //------------------------------------------------------------------------------------------------------------------
 
@@ -580,11 +580,11 @@ function Data() {
 
     this.getGroups = function () {
         return groups;
-    }
+    };
 
     this.countGroups = function () {
         return groups.length;
-    }
+    };
 
     var fetchGroups = function () {
         data.forEach(function (series) {
@@ -592,7 +592,7 @@ function Data() {
                 groups.push(series.group);
             }
         });
-    }
+    };
 
     var getGroupsWithSeries = function () {
         var groupsWithSeries = {};
@@ -603,7 +603,7 @@ function Data() {
             groupsWithSeries[series.group].push(series.values);
         });
         return groupsWithSeries;
-    }
+    };
 
     //------------------------------------------------------------------------------------------------------------------
 
@@ -612,11 +612,11 @@ function Data() {
 
     this.xExtent = function () {
         return xExtent;
-    }
+    };
 
     this.yExtent = function () {
         return yExtent;
-    }
+    };
 
     var fetchXExtent = function () {
         //get the min value from all series
@@ -632,7 +632,7 @@ function Data() {
             }));
         }));
         xExtent = [min, max];
-    }
+    };
 
     var fetchYExtent = function () {
         //min is either the min value from all series, or 0, whichever is lower
@@ -669,7 +669,7 @@ function Data() {
         }
 
         yExtent = [min, max];
-    }
+    };
 
 }
 
@@ -714,7 +714,7 @@ function Cartesian(container) {
         this.areas.draw(xScale, yScale);
         this.plot.axes.draw(xScale, yScale);
         this.points.draw(xScale, yScale);
-    }
+    };
 }
 
 function HorizontalBar(container) {
@@ -754,7 +754,7 @@ function HorizontalBar(container) {
         var result = fakeLabel.node().getComputedTextLength();
         fakeLabel.remove();
         return result;
-    }
+    };
 
     this.draw = function (data) {
             var self = this;
